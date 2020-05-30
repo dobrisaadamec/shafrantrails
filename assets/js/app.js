@@ -122,66 +122,13 @@ $("#linkMelanija").click(function () {
 
 
 $("#linkPOI").click(function () {
-  if (map.hasLayer(k1)) {
-    map.removeLayer(k1);
+
+  if (map.hasLayer(POILayer)) {
+    map.removeLayer(POILayer);
     $(this).children(":first").removeClass("fa-check-circle");
     $(this).children(":first").addClass("fa-circle-o");
   } else {
-    map.addLayer(k1);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k2)) {
-    map.removeLayer(k2);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k2);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k3)) {
-    map.removeLayer(k3);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k3);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k4)) {
-    map.removeLayer(k4);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k4);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k5)) {
-    map.removeLayer(k5);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k5);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k6)) {
-    map.removeLayer(k6);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k6);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  if (map.hasLayer(k7)) {
-    map.removeLayer(k7);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(k7);
+    map.addLayer(POILayer);
     $(this).children(":first").removeClass("fa-circle-o");
     $(this).children(":first").addClass("fa-check-circle");
   }
@@ -376,6 +323,7 @@ var mapLayerOpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/
 
 
 var dragojlaLayer = new L.GPX('data/routeGoranDragojlaProduzena.txt', {
+  name: 'dragojlaLayer',
   polyline_options: {
     color: 'red',
     opacity: 0.75,
@@ -393,6 +341,7 @@ var dragojlaLayer = new L.GPX('data/routeGoranDragojlaProduzena.txt', {
 }).addTo(map);
 
 var kalvarija01Layer = new L.GPX('data/routeKalvarijaTrail01.txt', {
+  name: 'kalvarija01Layer',
   polyline_options: {
     color: 'green',
     opacity: 0.75,
@@ -411,6 +360,7 @@ var kalvarija01Layer = new L.GPX('data/routeKalvarijaTrail01.txt', {
 
 
 var osmicaLayer = new L.GPX('data/routeGoranOsmica.txt', {
+  name: 'osmicaLayer',
   polyline_options: {
     color: 'blue',
     opacity: 0.75,
@@ -428,6 +378,7 @@ var osmicaLayer = new L.GPX('data/routeGoranOsmica.txt', {
 }).addTo(map);
 
 var melanijaLayer = new L.GPX('data/routeGoranMelanija.txt', {
+  name: 'melanijaLayer',
   polyline_options: {
     color: 'green',
     opacity: 0.75,
@@ -443,6 +394,8 @@ var melanijaLayer = new L.GPX('data/routeGoranMelanija.txt', {
 }).on('loaded', function (e) {
   map.fitBounds(e.target.getBounds());
 }).addTo(map);
+
+var trailsLayer = L.layerGroup([dragojlaLayer, kalvarija01Layer, melanijaLayer, osmicaLayer]);
 
 osmicaLayer.on('click', function (e) {
   showRouteModalInfo('Osmica', this, '');
@@ -473,6 +426,11 @@ var k4 = L.marker([45.482271, 15.499805], { icon: iconRedLeaf }).bindPopup("Fuka
 var k5 = L.marker([45.505461, 15.499654], { icon: iconRedLeaf }).bindPopup("Kalvarija dom");
 var k6 = L.marker([45.460026, 15.487254], { icon: iconRedLeaf }).bindPopup("Roganac");
 var k7 = L.marker([45.479770, 15.531863], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 2 (Melanija)");
+
+var POILayer = L.layerGroup([k1, k2, k3, k4, k5, k6, k7]);
+//.addLayer(polyline)
+//.addTo(map);
+
 
 
 //samo jedna odabrana

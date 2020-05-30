@@ -14,11 +14,15 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
     crossorigin="" />
-  <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css">
-  <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css">
-  <link rel="stylesheet" href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
+  <link rel="stylesheet"
+    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css">
+  <link rel="stylesheet"
+    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css">
+  <link rel="stylesheet"
+    href="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.css">
   <link rel="stylesheet" href="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.css">
   <link rel="stylesheet" href="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.css" />
   <link rel="stylesheet" href="assets/css/app.css">
@@ -30,8 +34,11 @@
   <link rel="icon" type="image/x-icon" href="assets/img/icons8-sun-48.png">
 
   <style>
-
-    #elevation-div {	height: 25%; font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif; } </style>
+    #elevation-div {
+      height: 25%;
+      font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    }
+  </style>
 </head>
 
 <body>
@@ -40,7 +47,8 @@
       <div class="navbar-header">
         <div class="navbar-icon-container">
           <a href="#" class="navbar-icon pull-right visible-xs" id="nav-btn"><i class="fa fa-bars fa-lg white"></i></a>
-          <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i class="fa fa-search fa-lg white"></i></a>
+          <a href="#" class="navbar-icon pull-right visible-xs" id="sidebar-toggle-btn"><i
+              class="fa fa-search fa-lg white"></i></a>
         </div>
         <a class="navbar-brand" href="#">Šafran trails</a>
       </div>
@@ -53,30 +61,39 @@
         </form>
         <ul class="nav navbar-nav">
           <li class="dropdown" style="display:none">
-            <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-globe white"></i>&nbsp;&nbsp;Tools
+            <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i
+                class="fa fa-globe white"></i>&nbsp;&nbsp;Tools
               <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom
+              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i
+                    class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom
                   To Full Extent</a></li>
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i class="fa fa-picture-o"></i>&nbsp;&nbsp;Show
+              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i
+                    class="fa fa-picture-o"></i>&nbsp;&nbsp;Show
                   Legend</a></li>
               <li class="divider hidden-xs"></li>
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
+              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i
+                    class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
             </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Download
+            <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i
+                class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Download
               <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="data/routeGoranDragojlaProduzena.txt" download="routeGoranDragojlaProduzena.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Dragojla</a></li>
+              <li><a href="data/routeGoranDragojlaProduzena.txt" download="routeGoranDragojlaProduzena.gpx"
+                  target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Dragojla</a></li>
               <li><a href="data/routeKalvarijaTrail01.txt" download="routeKalvarijaTrail01.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Kalvarija
+                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Kalvarija
                   trail 01</a></li>
               <li><a href="data/routeGoranMelanija.txt" download="routeKalvarijaTrail01.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Melanija</a></li>
-              <li><a href="data/routeGoranOsmica.txt" download="routeGoranOsmica.gpx" target="_blank" data-toggle="collapse"
-                  data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Osmica</a></li>
+                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Melanija</a></li>
+              <li><a href="data/routeGoranOsmica.txt" download="routeGoranOsmica.gpx" target="_blank"
+                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Osmica</a></li>
 
             </ul>
           </li>
@@ -85,11 +102,14 @@
               <i class="fa fa-globe white"></i>&nbsp;&nbsp;Mape podloga
               <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="JavaScript:setOpenMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Open
+              <li><a href="JavaScript:setOpenMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Open
                   Map klasična</a></li>
-              <li><a href="JavaScript:setTopoMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Open
+              <li><a href="JavaScript:setTopoMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Open
                   Map topo</a></li>
-              <li><a href="JavaScript:setESRIMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="fa fa-download"></i>&nbsp;&nbsp;Open
+              <li><a href="JavaScript:setESRIMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i
+                    class="fa fa-download"></i>&nbsp;&nbsp;Open
                   ESRI World</a></li>
               <li><a href="JavaScript:setGoogleHybridMap()" data-toggle="collapse" data-target=".navbar-collapse.in"><i
                     class="fa fa-download"></i>&nbsp;&nbsp;
@@ -100,8 +120,10 @@
 
             </ul>
           </li>
-          <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i class="fa fa-list white"></i>&nbsp;&nbsp;Staze</a></li>
-          <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i class="fa fa-question-circle white">
+          <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="list-btn"><i
+                class="fa fa-list white"></i>&nbsp;&nbsp;Staze</a></li>
+          <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="about-btn"><i
+                class="fa fa-question-circle white">
 
               </i>&nbsp;&nbsp;Ooooo</a></li>
         </ul>
@@ -116,7 +138,8 @@
         <div class="panel panel-default" id="features">
           <div class="panel-heading">
             <h3 class="panel-title">Staze
-              <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i class="fa fa-chevron-left"></i></button></h3>
+              <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i
+                  class="fa fa-chevron-left"></i></button></h3>
           </div>
           <!-- <div class="panel-body">
             <div class="row">
@@ -145,19 +168,23 @@
               <tbody class="list">
                 <tr class="" style="cursor:pointer;">
                   <td id="linkDragojlaProsirena"></i>
-                    Dragojla<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i></td>
+                    Dragojla<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
+                  </td>
                 </tr>
                 <tr class="">
                   <td id="linkKalvarija01" style="cursor:pointer">
-                    Kalvarija trail 01<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-check-circle"></i></td>
+                    Kalvarija trail 01<i style="float:right; margin-right: 5px; color: green"
+                      class="fa fa-2x fa-check-circle"></i></td>
                 </tr>
                 <tr class="">
                   <td id="linkMelanija" style="cursor:pointer">
-                    Melanija<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-check-circle"></i></td>
+                    Melanija<i style="float:right; margin-right: 5px; color: green"
+                      class="fa fa-2x fa-check-circle"></i></td>
                 </tr>
                 <tr class="">
                   <td id="linkOsmica" style="cursor:pointer">
-                    Osmica<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-check-circle"></i></td>
+                    Osmica<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-check-circle"></i>
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -166,7 +193,8 @@
                 </tr>
                 <tr class="">
                   <td id="linkPOI" style="cursor:pointer">
-                    Ključna mjesta<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-circle-o"></i></td>
+                    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
+                      class="fa fa-2x fa-circle-o"></i></td>
                 </tr>
               </tbody>
             </table>
@@ -193,9 +221,11 @@
         </div>
         <div class="modal-body">
           <ul class="nav nav-tabs nav-justified" id="aboutTabs">
-            <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;O Šafranu</a></li>
+            <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-question-circle"></i>&nbsp;O
+                Šafranu</a></li>
             <!-- <li><a href="#contact" data-toggle="tab"><i class="fa fa-envelope"></i>&nbsp;Contact us</a></li> -->
-            <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a></li>
+            <li><a href="#disclaimer" data-toggle="tab"><i class="fa fa-exclamation-circle"></i>&nbsp;Disclaimer</a>
+            </li>
           </ul>
           <div class="tab-content" id="aboutTabsContent">
             <div class="tab-pane fade active in" id="about">
@@ -206,7 +236,8 @@
                   <li class="list-group-item">Pregledajte trail rute</li>
                   <li class="list-group-item">Uključite isključite</li>
                   <li class="list-group-item">Promijenite si mapu u podlozi</li>
-                  <li class="list-group-item">Na pametnom uređaju u šumi provjerite gdje ste zalutali u odnosu na rutu</li>
+                  <li class="list-group-item">Na pametnom uređaju u šumi provjerite gdje ste zalutali u odnosu na rutu
+                  </li>
                   <li class="list-group-item">I tako to</li>
                   <li class="list-group-item">nešto nešto</li>
                 </ul>
@@ -249,21 +280,25 @@
               </form>
             </div>
             <div class="tab-pane fade" id="boroughs-tab">
-              <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/pdf/bytes/nybbwi_metadata.pdf" target="_blank">New
+              <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/pdf/bytes/nybbwi_metadata.pdf"
+                  target="_blank">New
                   York City Department of City Planning</a></p>
             </div>
             <div class="tab-pane fade" id="subway-lines-tab">
               <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA
-                  Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service"
-                  target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
+                  Subway data</a> courtesy of the <a
+                  href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY
+                  Mapping Service at the Center for Urban Research</a></p>
             </div>
             <div class="tab-pane fade" id="theaters-tab">
-              <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC
+              <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w"
+                  target="_blank">NYC
                   Department of Information & Telecommunications (DoITT)</a></p>
             </div>
             <div class="tab-pane fade" id="museums-tab">
-              <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb"
-                  target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+              <p>Museum data courtesy of <a
+                  href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC
+                  Department of Information & Telecommunications (DoITT)</a></p>
             </div>
           </div>
         </div>
@@ -373,15 +408,18 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.10.5/typeahead.bundle.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
     crossorigin=""></script>
   <!-- leaflet-ui -->
   <!-- Leaflet-UI -->
   <!-- <script src="https://unpkg.com/leaflet-ui@latest/dist/leaflet-ui.js"></script> -->
 
 
-  <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
-  <script src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
+  <script
+    src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js"></script>
+  <script
+    src="https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-locatecontrol/v0.43.0/L.Control.Locate.min.js"></script>
   <script src="assets/leaflet-groupedlayercontrol/leaflet.groupedlayercontrol.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.4.0/gpx.min.js"></script>
   <script src="https://unpkg.com/@raruto/leaflet-elevation/dist/leaflet-elevation.js"></script>

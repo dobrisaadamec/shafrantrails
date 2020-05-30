@@ -277,10 +277,10 @@ var elevation_options = {
   collapsed: false,
 
   // if (!detached) control position on one of map corners
-  position: "topright",
+  position: "bottomright",
 
   // Autoupdate map center on chart mouseover.
-  followMarker: true,
+  followMarker: false,
 
   // Chart distance/elevation units.
   imperial: false,
@@ -338,7 +338,7 @@ var dragojlaLayer = new L.GPX('data/routeGoranDragojlaProduzena.txt', {
   }
 }).on('loaded', function (e) {
   map.fitBounds(e.target.getBounds());
-}).addTo(map);
+});//.addTo(map);
 
 var kalvarija01Layer = new L.GPX('data/routeKalvarijaTrail01.txt', {
   name: 'kalvarija01Layer',
@@ -356,7 +356,7 @@ var kalvarija01Layer = new L.GPX('data/routeKalvarijaTrail01.txt', {
   }
 }).on('loaded', function (e) {
   map.fitBounds(e.target.getBounds());
-}).addTo(map);
+});//.addTo(map);
 
 
 var osmicaLayer = new L.GPX('data/routeGoranOsmica.txt', {
@@ -375,7 +375,7 @@ var osmicaLayer = new L.GPX('data/routeGoranOsmica.txt', {
   }
 }).on('loaded', function (e) {
   map.fitBounds(e.target.getBounds());
-}).addTo(map);
+});//.addTo(map);
 
 var melanijaLayer = new L.GPX('data/routeGoranMelanija.txt', {
   name: 'melanijaLayer',
@@ -393,9 +393,10 @@ var melanijaLayer = new L.GPX('data/routeGoranMelanija.txt', {
   }
 }).on('loaded', function (e) {
   map.fitBounds(e.target.getBounds());
-}).addTo(map);
+});//.addTo(map);
 
 var trailsLayer = L.layerGroup([dragojlaLayer, kalvarija01Layer, melanijaLayer, osmicaLayer]);
+trailsLayer.addTo(map);
 
 osmicaLayer.on('click', function (e) {
   showRouteModalInfo('Osmica', this, '');
@@ -431,25 +432,48 @@ var POILayer = L.layerGroup([k1, k2, k3, k4, k5, k6, k7]);
 //.addLayer(polyline)
 //.addTo(map);
 
-
+//elevation layer
+var controlElevation = L.control.elevation(elevation_options);
 
 //samo jedna odabrana
 var routeName = getQueryVariable(window.location.search, 'name');
-if (routeName == "melanija") {
-  $("#linkDragojlaProsirena").click();
-  $("#linkOsmica").click();
-  $("#linkKalvarija01").click();
+
+if (routeName != '') {
+  $('#feature-list').hide();
+  map.removeLayer(trailsLayer);
+}
+
+if (routeName == 'melanija') {
+  //$("#linkDragojlaProsirena").click();
+  //$("#linkOsmica").click();
+  //$("#linkKalvarija01").click();
+  showElevationLayer('data/routeGoranMelanija.txt');
+  map.addLayer(melanijaLayer);
+}
+if (routeName == 'dragojla') {
+  //$("#linkDragojlaProsirena").click();
+  //$("#linkOsmica").click();
+  //$("#linkKalvarija01").click();
+  showElevationLayer('data/routeGoranDragojlaProduzena.txt');
+  map.addLayer(dragojlaLayer);
 }
 
 
 $('#loading').hide();
 
-// Instantiate elevation control.
-//var controlElevation = L.control.elevation(elevation_options).addTo(map);
 
-// Load track from url (allowed data types: "*.geojson", "*.gpx")
-//controlElevation.load("data/routeKalvarijaTrail01.txt");
+function showElevationLayer(gpxPath) {
+  // Instantiate elevation control.
+  controlElevation.addTo(map);
 
+  // Load track from url (allowed data types: "*.geojson", "*.gpx")
+  controlElevation.load(gpxPath);
+}
+
+function hideElevationLayer() {
+  map.removeLayer(controlElevation);
+
+}
 
 /* Attribution control */
 function updateAttribution(e) {

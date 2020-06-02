@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Melanija",
+        "gpx": "data/routeGoranMelanija.txt",
+        "downloadName": "melanija.gpx",
+        "menuId": "linkMelanija",
+        "layerName": "melanijaLayer"
+    },
+    {
+        "name": "Dragojla",
+        "gpx": "data/routeGoranDragojla.txt",
+        "downloadName": "dragojla.gpx",
+        "menuId": "linkDragojlaProsirena",
+        "layerName": "dragojlaLayer"
+    }
+]

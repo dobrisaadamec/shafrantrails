@@ -62,80 +62,6 @@ $("#sidebar-hide-btn").click(function () {
   return false;
 });
 
-
-$("#linkDragojlaProsirena").click(function () {
-  if (map.hasLayer(dragojlaLayer)) {
-    map.removeLayer(dragojlaLayer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(dragojlaLayer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  //$(this).parent().toggleClass("routeSelected");
-  return false;
-});
-
-$("#linkKalvarija01").click(function () {
-  if (map.hasLayer(kalvarija01Layer)) {
-    map.removeLayer(kalvarija01Layer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(kalvarija01Layer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  //$(this).parent().toggleClass("routeSelected");
-
-  return false;
-});
-
-$("#linkOsmica").click(function () {
-  if (map.hasLayer(osmicaLayer)) {
-    map.removeLayer(osmicaLayer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(osmicaLayer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  //$(this).parent().toggleClass("routeSelected");
-
-  return false;
-});
-
-$("#linkMelanija").click(function () {
-  if (map.hasLayer(melanijaLayer)) {
-    map.removeLayer(melanijaLayer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(melanijaLayer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-  return false;
-});
-
-
-$("#linkPOI").click(function () {
-
-  if (map.hasLayer(POILayer)) {
-    map.removeLayer(POILayer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(POILayer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-
-  return false;
-});
-
 function getQueryVariable(url, variable) {
   var query = url.substring(1);
   var vars = query.split('&');
@@ -233,6 +159,57 @@ function showRouteModalInfo(name, gpxLayer, url) {
   }
 
   $('#routeInfo').html(info);
+}
+
+//init
+$.getJSON("data/trailsdb.json", function (data) {
+  var htmlDownload = '';
+  var htmlMenu = '';
+  console.log('čitam');
+  $.each(data, function (key, value) {
+    console.log(value.name);
+    htmlDownload += `<li><a href="${value.gpx}" download="${value.downloadName}" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"> 
+    <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
+    </li>`;
+    htmlMenu += `<tr class="" style="cursor:pointer;">
+    <td id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" ></i>
+    ${value.name}<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
+    </td>
+  </tr>`;
+
+  });
+
+  $('#menuTrailsDownload').html(htmlDownload);
+
+  //ključna mjesta
+  var HTMLPOI = `<tr>
+  <td>
+    <hr />
+  </td>
+</tr>
+<tr class="">
+  <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
+    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
+      class="fa fa-2x fa-circle-o"></i></td>
+</tr>`;
+  htmlMenu += HTMLPOI;
+  $('#menuTrails').html(htmlMenu);
+});
+
+function toggleRoute(el, layer) {
+  console.log(el.id);
+
+  if (map.hasLayer(layer)) {
+    map.removeLayer(layer);
+    $(el).children(":first").removeClass("fa-check-circle");
+    $(el).children(":first").addClass("fa-circle-o");
+  } else {
+    map.addLayer(layer);
+    $(el).children(":first").removeClass("fa-circle-o");
+    $(el).children(":first").addClass("fa-check-circle");
+  }
+
+  return false;
 }
 
 var iconGreenLeaf = L.icon({
@@ -571,6 +548,20 @@ $("#featureModal").on("hidden.bs.modal", function (e) {
 });
 
 
+$("#linkPOI").click(function () {
+
+  if (map.hasLayer(POILayer)) {
+    map.removeLayer(POILayer);
+    $(this).children(":first").removeClass("fa-check-circle");
+    $(this).children(":first").addClass("fa-circle-o");
+  } else {
+    map.addLayer(POILayer);
+    $(this).children(":first").removeClass("fa-circle-o");
+    $(this).children(":first").addClass("fa-check-circle");
+  }
+
+  return false;
+});
 // // Leaflet patch to make layer control scrollable on touch browsers
 // var container = $(".leaflet-control-layers")[0];
 // if (!L.Browser.touch) {

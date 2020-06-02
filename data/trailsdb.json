@@ -1,16 +1,22 @@
 [
     {
+        "code": "melanija",
         "name": "Melanija",
         "gpx": "data/routeGoranMelanija.txt",
+        "color": "red",
         "downloadName": "melanija.gpx",
         "menuId": "linkMelanija",
-        "layerName": "melanijaLayer"
+        "layerName": "melanijaLayer",
+        "infoUrl": ""
     },
     {
+        "code": "dragojla",
         "name": "Dragojla",
-        "gpx": "data/routeGoranDragojla.txt",
+        "gpx": "data/routeGoranDragojlaProduzena.txt",
+        "color": "blue",
         "downloadName": "dragojla.gpx",
-        "menuId": "linkDragojlaProsirena",
-        "layerName": "dragojlaLayer"
+        "menuId": "linkDragojla",
+        "layerName": "dragojlaLayer",
+        "infoUrl": "http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf"
     }
 ]

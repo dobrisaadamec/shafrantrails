@@ -1,5 +1,9 @@
 var map, featureList, boroughSearch = [], theaterSearch = [], museumSearch = [];
 
+$.ajaxSetup({
+  async: false
+});
+
 $(window).resize(function () {
   sizeLayerControl();
 });
@@ -161,11 +165,72 @@ function showRouteModalInfo(name, gpxLayer, url) {
   $('#routeInfo').html(info);
 }
 
-//init
+//init map
+
+var elevation_options = {
+  // Default chart colors: theme lime-theme, magenta-theme, ...
+  theme: "lightblue-theme",
+  // Chart container outside/inside map container
+  detached: false,
+  // if (detached), the elevation chart container
+  elevationDiv: "#elevation-div",
+  // if (!detached) autohide chart profile on chart mouseleave
+  autohide: false,
+  // if (!detached) initial state of chart profile control
+  collapsed: false,
+  // if (!detached) control position on one of map corners
+  position: "bottomright",
+  // Autoupdate map center on chart mouseover.
+  followMarker: false,
+  // Chart distance/elevation units.
+  imperial: false,
+  // [Lat, Long] vs [Long, Lat] points. (leaflet default: [Lat, Long])
+  reverseCoords: false,
+  // Summary track info style: "line" || "multiline" || false,
+  summary: 'multiline',
+};
+
+map = L.map('map').setView([45.4858, 15.4878], 13);
+
+// add the OpenStreetMap tiles
+var mapLayerOpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+});
+
+var mapLayerEsriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+});
+
+var mapLayerGoogleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
+  maxZoom: 20,
+  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+});
+
+var mapLayerGoogleTerain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+  maxZoom: 20,
+  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+});
+
+
+var mapLayerOpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+  maxZoom: 19,
+  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
+}).addTo(map);
+
+//init layers
+var trailsLayer;
+var createLayersScript = '';
+var clickAllLayersScript = '';
+
+var trailsDbData;
+
 $.getJSON("data/trailsdb.json", function (data) {
   var htmlDownload = '';
   var htmlMenu = '';
-  console.log('čitam');
+
+  trailsDbData = data;
+
   $.each(data, function (key, value) {
     console.log(value.name);
     htmlDownload += `<li><a href="${value.gpx}" download="${value.downloadName}" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"> 
@@ -177,24 +242,55 @@ $.getJSON("data/trailsdb.json", function (data) {
     </td>
   </tr>`;
 
+    createLayersScript += `var ${value.layerName} = new L.GPX('${value.gpx}', {
+    name: '${value.layerName}',
+    polyline_options: {
+      color: '${value.color}',
+      opacity: 0.75,
+      weight: 5,
+      lineCap: 'round'
+    },
+    async: true,
+    marker_options: {
+      startIconUrl: 'assets/img/pin-icon-start.png',
+      endIconUrl: 'assets/img/pin-icon-end.png',
+      shadowUrl: 'assets/img/pin-shadow.png'
+    }
+  }).on('loaded', function (e) {
+    //map.fitBounds(e.target.getBounds());
+  });
+
+  ${value.layerName}.on('click', function (e) {
+    showRouteModalInfo('${value.name}', this, '${value.infoUrl}');
+  });
+  `
+
+    clickAllLayersScript += `$("#${value.menuId}").click();`;
+
   });
 
   $('#menuTrailsDownload').html(htmlDownload);
 
   //ključna mjesta
   var HTMLPOI = `<tr>
-  <td>
-    <hr />
-  </td>
-</tr>
-<tr class="">
-  <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
-    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
-      class="fa fa-2x fa-circle-o"></i></td>
-</tr>`;
+                  <td>
+                    <hr />
+                  </td>
+                </tr>
+                <tr class="">
+                  <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
+                    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
+                      class="fa fa-2x fa-circle-o"></i></td>
+                </tr>`;
   htmlMenu += HTMLPOI;
   $('#menuTrails').html(htmlMenu);
+
 });
+
+eval(createLayersScript);
+
+trailsLayer = L.layerGroup([dragojlaLayer, melanijaLayer]);
+trailsLayer.addTo(map);
 
 function toggleRoute(el, layer) {
   console.log(el.id);
@@ -234,161 +330,6 @@ var iconRedLeaf = L.icon({
   popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
-
-
-var elevation_options = {
-
-  // Default chart colors: theme lime-theme, magenta-theme, ...
-  theme: "lightblue-theme",
-
-  // Chart container outside/inside map container
-  detached: false,
-
-  // if (detached), the elevation chart container
-  elevationDiv: "#elevation-div",
-
-  // if (!detached) autohide chart profile on chart mouseleave
-  autohide: false,
-
-  // if (!detached) initial state of chart profile control
-  collapsed: false,
-
-  // if (!detached) control position on one of map corners
-  position: "bottomright",
-
-  // Autoupdate map center on chart mouseover.
-  followMarker: false,
-
-  // Chart distance/elevation units.
-  imperial: false,
-
-  // [Lat, Long] vs [Long, Lat] points. (leaflet default: [Lat, Long])
-  reverseCoords: false,
-
-  // Summary track info style: "line" || "multiline" || false,
-  summary: 'multiline',
-
-};
-
-map = L.map('map').setView([45.4858, 15.4878], 13);
-
-// add the OpenStreetMap tiles
-var mapLayerOpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-});
-
-var mapLayerEsriWorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-  attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-});
-
-var mapLayerGoogleHybrid = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', {
-  maxZoom: 20,
-  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-});
-
-var mapLayerGoogleTerain = L.tileLayer('http://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-  maxZoom: 20,
-  subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
-});
-
-
-var mapLayerOpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
-}).addTo(map);
-
-
-var dragojlaLayer = new L.GPX('data/routeGoranDragojlaProduzena.txt', {
-  name: 'dragojlaLayer',
-  polyline_options: {
-    color: 'red',
-    opacity: 0.75,
-    weight: 5,
-    lineCap: 'round'
-  },
-  async: true,
-  marker_options: {
-    startIconUrl: 'assets/img/pin-icon-start.png',
-    endIconUrl: 'assets/img/pin-icon-end.png',
-    shadowUrl: 'assets/img/pin-shadow.png'
-  }
-}).on('loaded', function (e) {
-  map.fitBounds(e.target.getBounds());
-});//.addTo(map);
-
-var kalvarija01Layer = new L.GPX('data/routeKalvarijaTrail01.txt', {
-  name: 'kalvarija01Layer',
-  polyline_options: {
-    color: 'green',
-    opacity: 0.75,
-    weight: 5,
-    lineCap: 'round'
-  },
-  async: true,
-  marker_options: {
-    startIconUrl: 'assets/img/pin-icon-start.png',
-    endIconUrl: 'assets/img/pin-icon-end.png',
-    shadowUrl: 'assets/img/pin-shadow.png'
-  }
-}).on('loaded', function (e) {
-  map.fitBounds(e.target.getBounds());
-});//.addTo(map);
-
-
-var osmicaLayer = new L.GPX('data/routeGoranOsmica.txt', {
-  name: 'osmicaLayer',
-  polyline_options: {
-    color: 'blue',
-    opacity: 0.75,
-    weight: 5,
-    lineCap: 'round'
-  },
-  async: true,
-  marker_options: {
-    startIconUrl: 'assets/img/pin-icon-start.png',
-    endIconUrl: 'assets/img/pin-icon-end.png',
-    shadowUrl: 'assets/img/pin-shadow.png'
-  }
-}).on('loaded', function (e) {
-  map.fitBounds(e.target.getBounds());
-});//.addTo(map);
-
-var melanijaLayer = new L.GPX('data/routeGoranMelanija.txt', {
-  name: 'melanijaLayer',
-  polyline_options: {
-    color: 'green',
-    opacity: 0.75,
-    weight: 5,
-    lineCap: 'round'
-  },
-  async: true,
-  marker_options: {
-    startIconUrl: 'assets/img/pin-icon-start.png',
-    endIconUrl: 'assets/img/pin-icon-end.png',
-    shadowUrl: 'assets/img/pin-shadow.png'
-  }
-}).on('loaded', function (e) {
-  map.fitBounds(e.target.getBounds());
-});//.addTo(map);
-
-var trailsLayer = L.layerGroup([dragojlaLayer, kalvarija01Layer, melanijaLayer, osmicaLayer]);
-trailsLayer.addTo(map);
-
-osmicaLayer.on('click', function (e) {
-  showRouteModalInfo('Osmica', this, '');
-});
-dragojlaLayer.on('click', function (e) {
-  showRouteModalInfo('Dragojla', this, 'http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf');
-});
-kalvarija01Layer.on('click', function (e) {
-  showRouteModalInfo('Kalvarija trail 01', this, '');
-});
-melanijaLayer.on('click', function (e) {
-  showRouteModalInfo('Melanija', this, '');
-});
-
-
 iconCamera = L.divIcon({
   className: 'custom-div-icon',
   html: "<div style='background-color:#4838cc;' class='marker-pin'></div><i class='fa fa-camera awesome'>",
@@ -414,25 +355,13 @@ var controlElevation = L.control.elevation(elevation_options);
 
 //samo jedna odabrana
 var routeName = getQueryVariable(window.location.search, 'name');
-
-if (routeName != '') {
-  $('#feature-list').hide();
-  map.removeLayer(trailsLayer);
-}
-
-if (routeName == 'melanija') {
-  //$("#linkDragojlaProsirena").click();
-  //$("#linkOsmica").click();
-  //$("#linkKalvarija01").click();
-  showElevationLayer('data/routeGoranMelanija.txt');
-  map.addLayer(melanijaLayer);
-}
-if (routeName == 'dragojla') {
-  //$("#linkDragojlaProsirena").click();
-  //$("#linkOsmica").click();
-  //$("#linkKalvarija01").click();
-  showElevationLayer('data/routeGoranDragojlaProduzena.txt');
-  map.addLayer(dragojlaLayer);
+if (routeName.length > 0) {
+  var selectedTrail = trailsDbData.find(x => x.code === routeName);
+  if (selectedTrail != undefined) {
+    eval(clickAllLayersScript);
+    eval(`showElevationLayer('${selectedTrail.gpx}');`);
+    eval(`$("#${selectedTrail.menuId}").click();`);
+  }
 }
 
 
@@ -460,8 +389,6 @@ function updateAttribution(e) {
     }
   });
 }
-// map.on("layeradd", updateAttribution);
-// map.on("layerremove", updateAttribution);
 
 var attributionControl = L.control({
   position: "bottomright"
@@ -516,21 +443,6 @@ if (document.body.clientWidth <= 767) {
   var isCollapsed = false;
 }
 
-
-
-// var groupedOverlays = {
-//   "Points of Interest": {
-//     "<img src='assets/img/theater.png' width='24' height='28'>&nbsp;Theaters": theaterLayer,
-//     "<img src='assets/img/museum.png' width='24' height='28'>&nbsp;Museums": museumLayer
-//   },
-//   "Reference": {
-//     "Boroughs": boroughs,
-//     "Subway Lines": subwayLines
-//   }
-// };
-
-
-
 /* Highlight search box text on click */
 $("#searchbox").click(function () {
   $(this).select();
@@ -547,21 +459,6 @@ $("#featureModal").on("hidden.bs.modal", function (e) {
   $(document).on("mouseout", ".feature-row", clearHighlight);
 });
 
-
-$("#linkPOI").click(function () {
-
-  if (map.hasLayer(POILayer)) {
-    map.removeLayer(POILayer);
-    $(this).children(":first").removeClass("fa-check-circle");
-    $(this).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(POILayer);
-    $(this).children(":first").removeClass("fa-circle-o");
-    $(this).children(":first").addClass("fa-check-circle");
-  }
-
-  return false;
-});
 // // Leaflet patch to make layer control scrollable on touch browsers
 // var container = $(".leaflet-control-layers")[0];
 // if (!L.Browser.touch) {

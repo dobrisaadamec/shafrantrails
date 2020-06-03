@@ -75,41 +75,11 @@
           </div>
         </form>
         <ul class="nav navbar-nav">
-          <li class="dropdown" style="display:none">
-            <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i
-                class="fa fa-globe white"></i>&nbsp;&nbsp;Tools
-              <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="full-extent-btn"><i
-                    class="fa fa-arrows-alt"></i>&nbsp;&nbsp;Zoom
-                  To Full Extent</a></li>
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="legend-btn"><i
-                    class="fa fa-picture-o"></i>&nbsp;&nbsp;Show
-                  Legend</a></li>
-              <li class="divider hidden-xs"></li>
-              <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" id="login-btn"><i
-                    class="fa fa-user"></i>&nbsp;&nbsp;Login</a></li>
-            </ul>
-          </li>
           <li class="dropdown">
             <a class="dropdown-toggle" id="downloadDrop" href="#" role="button" data-toggle="dropdown"><i
                 class="fa fa-cloud-download white"></i>&nbsp;&nbsp;Download
               <b class="caret"></b></a>
             <ul class="dropdown-menu" id="menuTrailsDownload">
-              <li><a href="data/routeGoranDragojlaProduzena.txt" download="routeGoranDragojlaProduzena.gpx"
-                  target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"><i
-                    class="fa fa-download"></i>&nbsp;&nbsp;Dragojla</a></li>
-              <li><a href="data/routeKalvarijaTrail01.txt" download="routeKalvarijaTrail01.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
-                    class="fa fa-download"></i>&nbsp;&nbsp;Kalvarija
-                  trail 01</a></li>
-              <li><a href="data/routeGoranMelanija.txt" download="routeKalvarijaTrail01.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
-                    class="fa fa-download"></i>&nbsp;&nbsp;Melanija</a></li>
-              <li><a href="data/routeGoranOsmica.txt" download="routeGoranOsmica.gpx" target="_blank"
-                  data-toggle="collapse" data-target=".navbar-collapse.in"><i
-                    class="fa fa-download"></i>&nbsp;&nbsp;Osmica</a></li>
-
             </ul>
           </li>
           <li class="dropdown">
@@ -156,50 +126,11 @@
               <button type="button" class="btn btn-xs btn-default pull-right" id="sidebar-hide-btn"><i
                   class="fa fa-chevron-left"></i></button></h3>
           </div>
-          <!-- <div class="panel-body">
-            <div class="row">
-              <div class="col-xs-8 col-md-8">
-                <input type="text" class="form-control search" placeholder="Filter" />
-              </div>
-              <div class="col-xs-4 col-md-4">
-                <button type="button" class="btn btn-primary pull-right sort" data-sort="feature-name" id="sort-btn"><i
-                    class="fa fa-sort"></i>&nbsp;&nbsp;Sort</button>
-              </div>
-            </div>
-          </div> -->
+
           <div class="sidebar-table">
             <table class="table table-hover" id="feature-list">
               <tbody class="list" id="menuTrails">
-                <tr class="" style="cursor:pointer;">
-                  <td id="linkDragojlaProsirena"></i>
-                    Dragojla<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
-                  </td>
-                </tr>
-                <tr class="">
-                  <td id="linkKalvarija01" style="cursor:pointer">
-                    Kalvarija trail 01<i style="float:right; margin-right: 5px; color: green"
-                      class="fa fa-2x fa-check-circle"></i></td>
-                </tr>
-                <tr class="">
-                  <td id="linkMelanija" style="cursor:pointer">
-                    Melanija<i style="float:right; margin-right: 5px; color: green"
-                      class="fa fa-2x fa-check-circle"></i></td>
-                </tr>
-                <tr class="">
-                  <td id="linkOsmica" style="cursor:pointer">
-                    Osmica<i style="float:right; margin-right: 5px; color: green" class="fa fa-2x fa-check-circle"></i>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <hr />
-                  </td>
-                </tr>
-                <tr class="">
-                  <td id="linkPOI" style="cursor:pointer">
-                    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
-                      class="fa fa-2x fa-circle-o"></i></td>
-                </tr>
+
               </tbody>
             </table>
           </div>
@@ -251,58 +182,6 @@
               <p>Niš ne garantiramo</p>
               <p>GPX trag je napravljen u najboljoj mjeri i može zalutati nešto malo ili više ovisno o uređajima s
                 kojima se snima</p>
-            </div>
-            <div class="tab-pane fade" id="contact">
-              <form id="contact-form">
-                <div class="well well-sm">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="form-group">
-                        <label for="first-name">First Name:</label>
-                        <input type="text" class="form-control" id="first-name">
-                      </div>
-                      <div class="form-group">
-                        <label for="last-name">Last Name:</label>
-                        <input type="text" class="form-control" id="last-email">
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="text" class="form-control" id="email">
-                      </div>
-                    </div>
-                    <div class="col-md-8">
-                      <label for="message">Message:</label>
-                      <textarea class="form-control" rows="8" id="message"></textarea>
-                    </div>
-                    <div class="col-md-12">
-                      <p>
-                        <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="tab-pane fade" id="boroughs-tab">
-              <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/pdf/bytes/nybbwi_metadata.pdf"
-                  target="_blank">New
-                  York City Department of City Planning</a></p>
-            </div>
-            <div class="tab-pane fade" id="subway-lines-tab">
-              <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA
-                  Subway data</a> courtesy of the <a
-                  href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY
-                  Mapping Service at the Center for Urban Research</a></p>
-            </div>
-            <div class="tab-pane fade" id="theaters-tab">
-              <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w"
-                  target="_blank">NYC
-                  Department of Information & Telecommunications (DoITT)</a></p>
-            </div>
-            <div class="tab-pane fade" id="museums-tab">
-              <p>Museum data courtesy of <a
-                  href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC
-                  Department of Information & Telecommunications (DoITT)</a></p>
             </div>
           </div>
         </div>

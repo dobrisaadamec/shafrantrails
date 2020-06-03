@@ -1,70 +1,3 @@
-var map, featureList, boroughSearch = [], theaterSearch = [], museumSearch = [];
-
-$.ajaxSetup({
-  async: false
-});
-
-$(window).resize(function () {
-  sizeLayerControl();
-});
-
-$(document).on("click", ".feature-row", function (e) {
-  $(document).off("mouseout", ".feature-row", clearHighlight);
-  sidebarClick(parseInt($(this).attr("id"), 10));
-});
-
-if (!("ontouchstart" in window)) {
-  $(document).on("mouseover", ".feature-row", function (e) {
-    highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
-  });
-}
-
-$(document).on("mouseout", ".feature-row", clearHighlight);
-
-$("#about-btn").click(function () {
-  $("#aboutModal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
-$("#full-extent-btn").click(function () {
-  map.fitBounds(boroughs.getBounds());
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
-$("#legend-btn").click(function () {
-  $("#legendModal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
-$("#login-btn").click(function () {
-  $("#loginModal").modal("show");
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
-$("#list-btn").click(function () {
-  animateSidebar();
-  $(".navbar-collapse.in").collapse("hide");
-  return false;
-});
-
-$("#nav-btn").click(function () {
-  $(".navbar-collapse").collapse("toggle");
-  return false;
-});
-
-$("#sidebar-toggle-btn").click(function () {
-  animateSidebar();
-  return false;
-});
-
-$("#sidebar-hide-btn").click(function () {
-  animateSidebar();
-  return false;
-});
 
 function getQueryVariable(url, variable) {
   var query = url.substring(1);
@@ -165,6 +98,114 @@ function showRouteModalInfo(name, gpxLayer, url) {
   $('#routeInfo').html(info);
 }
 
+function toggleRoute(el, layer) {
+  console.log(el.id);
+
+  if (map.hasLayer(layer)) {
+    map.removeLayer(layer);
+    $(el).children(":first").removeClass("fa-check-circle");
+    $(el).children(":first").addClass("fa-circle-o");
+  } else {
+    map.addLayer(layer);
+    $(el).children(":first").removeClass("fa-circle-o");
+    $(el).children(":first").addClass("fa-check-circle");
+  }
+
+  return false;
+}
+
+function showElevationLayer(gpxPath) {
+  // Instantiate elevation control.
+  controlElevation.addTo(map);
+
+  // Load track from url (allowed data types: "*.geojson", "*.gpx")
+  controlElevation.load(gpxPath);
+}
+
+function hideElevationLayer() {
+  map.removeLayer(controlElevation);
+
+}
+
+/* Attribution control */
+function updateAttribution(e) {
+  $.each(map._layers, function (index, layer) {
+    if (layer.getAttribution) {
+      $("#attribution").html((layer.getAttribution()));
+    }
+  });
+}
+
+//init map and layers
+
+var map;
+
+$.ajaxSetup({
+  async: false
+});
+
+$(window).resize(function () {
+  sizeLayerControl();
+});
+
+$(document).on("click", ".feature-row", function (e) {
+  $(document).off("mouseout", ".feature-row", clearHighlight);
+  sidebarClick(parseInt($(this).attr("id"), 10));
+});
+
+if (!("ontouchstart" in window)) {
+  $(document).on("mouseover", ".feature-row", function (e) {
+    highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
+  });
+}
+
+$(document).on("mouseout", ".feature-row", clearHighlight);
+
+$("#about-btn").click(function () {
+  $("#aboutModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
+$("#full-extent-btn").click(function () {
+  map.fitBounds(boroughs.getBounds());
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
+$("#legend-btn").click(function () {
+  $("#legendModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
+$("#login-btn").click(function () {
+  $("#loginModal").modal("show");
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
+$("#list-btn").click(function () {
+  animateSidebar();
+  $(".navbar-collapse.in").collapse("hide");
+  return false;
+});
+
+$("#nav-btn").click(function () {
+  $(".navbar-collapse").collapse("toggle");
+  return false;
+});
+
+$("#sidebar-toggle-btn").click(function () {
+  animateSidebar();
+  return false;
+});
+
+$("#sidebar-hide-btn").click(function () {
+  animateSidebar();
+  return false;
+});
+
 //init map
 
 var elevation_options = {
@@ -225,7 +266,7 @@ var clickAllLayersScript = '';
 
 var trailsDbData;
 
-$.getJSON("data/trailsdb.json", function (data) {
+$.getJSON("data/trailsdb.json.txt", function (data) {
   var htmlDownload = '';
   var htmlMenu = '';
 
@@ -234,36 +275,36 @@ $.getJSON("data/trailsdb.json", function (data) {
   $.each(data, function (key, value) {
     console.log(value.name);
     htmlDownload += `<li><a href="${value.gpx}" download="${value.downloadName}" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"> 
-    <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
-    </li>`;
+      <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
+      </li>`;
     htmlMenu += `<tr class="" style="cursor:pointer;">
-    <td id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" ></i>
-    ${value.name}<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
-    </td>
-  </tr>`;
+      <td id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" ></i>
+      ${value.name}<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
+      </td>
+    </tr>`;
 
     createLayersScript += `var ${value.layerName} = new L.GPX('${value.gpx}', {
-    name: '${value.layerName}',
-    polyline_options: {
-      color: '${value.color}',
-      opacity: 0.75,
-      weight: 5,
-      lineCap: 'round'
-    },
-    async: true,
-    marker_options: {
-      startIconUrl: 'assets/img/pin-icon-start.png',
-      endIconUrl: 'assets/img/pin-icon-end.png',
-      shadowUrl: 'assets/img/pin-shadow.png'
-    }
-  }).on('loaded', function (e) {
-    //map.fitBounds(e.target.getBounds());
-  });
-
-  ${value.layerName}.on('click', function (e) {
-    showRouteModalInfo('${value.name}', this, '${value.infoUrl}');
-  });
-  `
+      name: '${value.layerName}',
+      polyline_options: {
+        color: '${value.color}',
+        opacity: 0.75,
+        weight: 5,
+        lineCap: 'round'
+      },
+      async: true,
+      marker_options: {
+        startIconUrl: 'assets/img/pin-icon-start.png',
+        endIconUrl: 'assets/img/pin-icon-end.png',
+        shadowUrl: 'assets/img/pin-shadow.png'
+      }
+    }).on('loaded', function (e) {
+      //map.fitBounds(e.target.getBounds());
+    });
+  
+    ${value.layerName}.on('click', function (e) {
+      showRouteModalInfo('${value.name}', this, '${value.infoUrl}');
+    });
+    `
 
     clickAllLayersScript += `$("#${value.menuId}").click();`;
 
@@ -273,15 +314,15 @@ $.getJSON("data/trailsdb.json", function (data) {
 
   //ključna mjesta
   var HTMLPOI = `<tr>
-                  <td>
-                    <hr />
-                  </td>
-                </tr>
-                <tr class="">
-                  <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
-                    Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
-                      class="fa fa-2x fa-circle-o"></i></td>
-                </tr>`;
+                    <td>
+                      <hr />
+                    </td>
+                  </tr>
+                  <tr class="">
+                    <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
+                      Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
+                        class="fa fa-2x fa-circle-o"></i></td>
+                  </tr>`;
   htmlMenu += HTMLPOI;
   $('#menuTrails').html(htmlMenu);
 
@@ -291,22 +332,6 @@ eval(createLayersScript);
 
 trailsLayer = L.layerGroup([dragojlaLayer, melanijaLayer]);
 trailsLayer.addTo(map);
-
-function toggleRoute(el, layer) {
-  console.log(el.id);
-
-  if (map.hasLayer(layer)) {
-    map.removeLayer(layer);
-    $(el).children(":first").removeClass("fa-check-circle");
-    $(el).children(":first").addClass("fa-circle-o");
-  } else {
-    map.addLayer(layer);
-    $(el).children(":first").removeClass("fa-circle-o");
-    $(el).children(":first").addClass("fa-check-circle");
-  }
-
-  return false;
-}
 
 var iconGreenLeaf = L.icon({
   iconUrl: 'assets/img/leaf-green.png',
@@ -338,7 +363,7 @@ iconCamera = L.divIcon({
 });
 
 //ključne točke
-var k1 = L.marker([45.477655, 15.533742], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 1 (Poučna staza)");
+var k1 = L.marker([45.477655, 15.533742], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 1 (Poučna staza)<br/><img width='100%' src='assets/img/poi/agm1.jpg' />");
 var k2 = L.marker([45.470300, 15.530267], { icon: iconRedLeaf }).bindPopup("Ulaz Mokrice");
 var k3 = L.marker([45.473398, 15.517943], { icon: iconRedLeaf }).bindPopup("Lovački dom");
 var k4 = L.marker([45.482271, 15.499805], { icon: iconRedLeaf }).bindPopup("Fukale");
@@ -367,28 +392,6 @@ if (routeName.length > 0) {
 
 $('#loading').hide();
 
-
-function showElevationLayer(gpxPath) {
-  // Instantiate elevation control.
-  controlElevation.addTo(map);
-
-  // Load track from url (allowed data types: "*.geojson", "*.gpx")
-  controlElevation.load(gpxPath);
-}
-
-function hideElevationLayer() {
-  map.removeLayer(controlElevation);
-
-}
-
-/* Attribution control */
-function updateAttribution(e) {
-  $.each(map._layers, function (index, layer) {
-    if (layer.getAttribution) {
-      $("#attribution").html((layer.getAttribution()));
-    }
-  });
-}
 
 var attributionControl = L.control({
   position: "bottomright"
@@ -459,12 +462,16 @@ $("#featureModal").on("hidden.bs.modal", function (e) {
   $(document).on("mouseout", ".feature-row", clearHighlight);
 });
 
-// // Leaflet patch to make layer control scrollable on touch browsers
-// var container = $(".leaflet-control-layers")[0];
-// if (!L.Browser.touch) {
-//   L.DomEvent
-//     .disableClickPropagation(container)
-//     .disableScrollPropagation(container);
-// } else {
-//   L.DomEvent.disableClickPropagation(container);
-// }
+  // // Leaflet patch to make layer control scrollable on touch browsers
+  // var container = $(".leaflet-control-layers")[0];
+  // if (!L.Browser.touch) {
+  //   L.DomEvent
+  //     .disableClickPropagation(container)
+  //     .disableScrollPropagation(container);
+  // } else {
+  //   L.DomEvent.disableClickPropagation(container);
+  // }
+
+
+
+

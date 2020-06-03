@@ -99,7 +99,6 @@ function showRouteModalInfo(name, gpxLayer, url) {
 }
 
 function toggleRoute(el, layer) {
-  console.log(el.id);
 
   if (map.hasLayer(layer)) {
     map.removeLayer(layer);
@@ -109,6 +108,14 @@ function toggleRoute(el, layer) {
     map.addLayer(layer);
     $(el).children(":first").removeClass("fa-circle-o");
     $(el).children(":first").addClass("fa-check-circle");
+  }
+
+  //elevation - gasi ako nije jedna
+  if ($('.fa-check-circle').length > 1) {
+    hideElevationLayer();
+  }
+  if ($('.fa-check-circle').length == 0) {
+    hideElevationLayer();
   }
 
   return false;
@@ -123,8 +130,7 @@ function showElevationLayer(gpxPath) {
 }
 
 function hideElevationLayer() {
-  map.removeLayer(controlElevation);
-
+  map.removeControl(controlElevation);
 }
 
 /* Attribution control */
@@ -228,10 +234,10 @@ var elevation_options = {
   // [Lat, Long] vs [Long, Lat] points. (leaflet default: [Lat, Long])
   reverseCoords: false,
   // Summary track info style: "line" || "multiline" || false,
-  summary: 'multiline',
+  summary: 'line',
 };
 
-map = L.map('map').setView([45.4858, 15.4878], 13);
+map = L.map('map').setView([45.4858, 15.5218], 13);
 
 // add the OpenStreetMap tiles
 var mapLayerOpenStreetMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -277,7 +283,7 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
   trailsDbData = data;
 
   $.each(data, function (key, value) {
-    console.log(value.name);
+
     htmlDownload += `<li><a href="${value.gpx}" download="${value.downloadName}" target="_blank" data-toggle="collapse" data-target=".navbar-collapse.in"> 
       <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
       </li>`;

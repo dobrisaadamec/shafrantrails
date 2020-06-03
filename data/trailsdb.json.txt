@@ -30,6 +30,26 @@
         "infoUrl": ""
     },
     {
+        "code": "dppgrdun",
+        "name": "Grdun (DPP)",
+        "gpx": "data/routeDPPGrdun.gpx.txt",
+        "color": "#8000ff",
+        "downloadName": "routeDPPGrdun.gpx",
+        "menuId": "linkDPPGrdun",
+        "layerName": "DPPGrdunLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "margareta",
+        "name": "Margareta i majstor",
+        "gpx": "data/routeMargareta.gpx.txt",
+        "color": "#33068f",
+        "downloadName": "routeMargareta.gpx",
+        "menuId": "linkMargareta",
+        "layerName": "margaretaLayer",
+        "infoUrl": ""
+    },
+    {
         "code": "melanija",
         "name": "Melanija",
         "gpx": "data/routeMelanija.txt",
@@ -40,6 +60,46 @@
         "infoUrl": ""
     },
     {
+        "code": "dpp",
+        "name": "Od Ozlja (DPP)",
+        "gpx": "data/routeDPP.gpx.txt",
+        "color": "#bf9900",
+        "downloadName": "routeDPP.gpx",
+        "menuId": "linkDPP",
+        "layerName": "dppLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "safranKalvarija",
+        "name": "Šafran Kalvarija (DPP)",
+        "gpx": "data/routeSafranKalvarijaDPP.gpx.txt",
+        "color": "#e8095f",
+        "downloadName": "safranKalvarija.gpx",
+        "menuId": "linkSafranKalvarija",
+        "layerName": "safranKalvarijaLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "safranmcadam",
+        "name": "Šafran McAdam",
+        "gpx": "data/routeSafranMcAdam.gpx.txt",
+        "color": "#009e20",
+        "downloadName": "routeSafranMcAdam.gpx",
+        "menuId": "linkSafranMcAdam",
+        "layerName": "safranmcadamLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "uzdih",
+        "name": "Uzdih prečica",
+        "gpx": "data/routeUzdihPrecica.gpx.txt",
+        "color": "#e36e00",
+        "downloadName": "routeUzdihPrecica.gpx",
+        "menuId": "linkUzdih",
+        "layerName": "uzdihLayer",
+        "infoUrl": ""
+    },
+    {
         "code": "zrinka",
         "name": "Zrinka",
         "gpx": "data/routeZrinka2.gpx.txt",
@@ -47,6 +107,16 @@
         "downloadName": "zrinka.gpx",
         "menuId": "linkZrinka",
         "layerName": "zrinkaLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "mrampa",
+        "name": "Mentalna rampa",
+        "gpx": "data/routeMentalnaRampa.gpx.txt",
+        "color": "#8000ff",
+        "downloadName": "routeMentalnaRampa.gpx",
+        "menuId": "linkmentalnaRampa",
+        "layerName": "mentalnaRampaLayer",
         "infoUrl": ""
     }
 ]

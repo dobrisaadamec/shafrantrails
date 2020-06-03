@@ -1,0 +1,114 @@
+[
+    {
+        "code": "agm1",
+        "name": "AGM <br/>(Poučna staza - ulaz)",
+        "latitude": "45.477655",
+        "longitude": "15.533742",
+        "img": "<br/><img width='100%' src='assets/img/poi/agm1.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "mokrice",
+        "name": "Mokrice <br/>(Poučna staza - ulaz)",
+        "latitude": "45.470300",
+        "longitude": "15.530267",
+        "img": "<br/><img width='100%' src='assets/img/poi/mokrice.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "lovackakucamokrice",
+        "name": "Lovačka kuća <br/>",
+        "latitude": "45.473398",
+        "longitude": "15.517943",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "fukale",
+        "name": "Fukale <br/>",
+        "latitude": "45.482271",
+        "longitude": "15.499805",
+        "img": "<br/><img width='100%' src='assets/img/poi/fukale.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "kalvarija",
+        "name": "Kalvarija <br/> Planinarska kuća",
+        "latitude": "45.505461",
+        "longitude": "15.499654",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "roganac",
+        "name": "Roganac <br/> ",
+        "latitude": "45.460026",
+        "longitude": "15.487254",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "biz",
+        "name": "BIZ <br/> Bezimeni izvor",
+        "latitude": "45.4685",
+        "longitude": "15.5283",
+        "img": "<br/><img width='100%' src='assets/img/poi/biz.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "riz",
+        "name": "RIZ <br/> Radočajev izvor",
+        "latitude": "45.47057",
+        "longitude": "15.50537",
+        "img": "<br/><img width='100%' src='assets/img/poi/riz.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "najdolina",
+        "name": "Najljepša dolina <br/> Kako bi trebalo biti",
+        "latitude": "45.468342",
+        "longitude": "15.521382",
+        "img": "<br/><img width='100%' src='assets/img/poi/najljepsadolina.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "mentalnarampa",
+        "name": "mentalna rampa<br/>",
+        "latitude": "45.494470",
+        "longitude": "15.508246",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "jzvinogradi",
+        "name": "JZ vinogradi<br/>",
+        "latitude": "45.468702",
+        "longitude": "15.507612",
+        "img": "<br/><img width='100%' src='assets/img/poi/jzvinogradi.jpg' />",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "mumije",
+        "name": "Mumije<br/>",
+        "latitude": "45.49589",
+        "longitude": "15.51066",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "krizanjeX",
+        "name": "X<br/>",
+        "latitude": "45.49817",
+        "longitude": "15.51055",
+        "img": "",
+        "icon": "iconRedLeaf"
+    },
+    {
+        "code": "sddubovac",
+        "name": "Dubovac<br/>",
+        "latitude": "45.49487",
+        "longitude": "15.52837",
+        "img": "<br/><img width='100%' src='assets/img/poi/dubovac.jpg' />",
+        "icon": "iconRedLeaf"
+    }
+]

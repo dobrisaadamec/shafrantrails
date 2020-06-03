@@ -268,6 +268,8 @@ var clickAllLayersScript = '';
 
 var trailsDbData;
 
+var trailLayersList = '';
+
 $.getJSON("data/trailsdb.json.txt", function (data) {
   var htmlDownload = '';
   var htmlMenu = '';
@@ -312,6 +314,7 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
 
     createPOIlayerScript += `L.marker([45.477655, 15.533742], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 1 (Poučna staza)<br/><img width='100%' src='assets/img/poi/agm1.jpg' />");`;
 
+    trailLayersList += `${value.layerName}, `;
   });
 
   $('#menuTrailsDownload').html(htmlDownload);
@@ -334,7 +337,9 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
 
 eval(createLayersScript);
 
-trailsLayer = L.layerGroup([dragojlaLayer, melanijaLayer]);
+eval(`trailsLayer = L.layerGroup([${trailLayersList}]);`);
+
+//trailsLayer = L.layerGroup([dragojlaLayer, melanijaLayer]);
 trailsLayer.addTo(map);
 
 var iconGreenLeaf = L.icon({
@@ -378,7 +383,6 @@ var POILayer;
 $.getJSON("data/poidb.json.txt", function (data) {
 
   $.each(data, function (key, value) {
-    console.log(value.name);
 
     createPOIlayerScript += `var ${value.code} = L.marker([${value.latitude}, ${value.longitude}], { icon: ${value.icon} }).bindPopup("${value.name} ${value.img}", customOptions);`;
     poiLayers += `${value.code}, `;
@@ -387,17 +391,6 @@ $.getJSON("data/poidb.json.txt", function (data) {
   eval(createPOIlayerScript);
   eval(`POILayer = L.layerGroup([${poiLayers}]);`);
 });
-// var k1 = L.marker([45.477655, 15.533742], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 1 (Poučna staza)<br/><img width='100%' src='assets/img/poi/agm1.jpg' />");
-// var k2 = L.marker([45.470300, 15.530267], { icon: iconRedLeaf }).bindPopup("Ulaz Mokrice");
-// var k3 = L.marker([45.473398, 15.517943], { icon: iconRedLeaf }).bindPopup("Lovački dom");
-// var k4 = L.marker([45.482271, 15.499805], { icon: iconRedLeaf }).bindPopup("Fukale");
-// var k5 = L.marker([45.505461, 15.499654], { icon: iconRedLeaf }).bindPopup("Kalvarija dom");
-// var k6 = L.marker([45.460026, 15.487254], { icon: iconRedLeaf }).bindPopup("Roganac");
-// var k7 = L.marker([45.479770, 15.531863], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 2 (Melanija)");
-
-//var POILayer = L.layerGroup([k1, k2, k3, k4, k5, k6, k7]);
-//.addLayer(polyline)
-//.addTo(map);
 
 //elevation layer
 var controlElevation = L.control.elevation(elevation_options);

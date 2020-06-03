@@ -1,8 +1,38 @@
 [
     {
+        "code": "dragojla",
+        "name": "Dragojla",
+        "gpx": "data/routeDragojla.txt",
+        "color": "blue",
+        "downloadName": "dragojla.gpx",
+        "menuId": "linkDragojla",
+        "layerName": "dragojlaLayer",
+        "infoUrl": "http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf"
+    },
+    {
+        "code": "kalvarija01kratka",
+        "name": "Kalvarija trail 01 - kratka",
+        "gpx": "data/routeKalvarijaTrail01kratka.gpx.txt",
+        "color": "red",
+        "downloadName": "kalvarijaTrail01kratka.gpx",
+        "menuId": "linkKalvarija01kratka",
+        "layerName": "kalvarija01kratkaLayer",
+        "infoUrl": ""
+    },
+    {
+        "code": "kalvarija01duga",
+        "name": "Kalvarija trail 01 - duga",
+        "gpx": "data/routeKalvarijaTrail01duga.gpx.txt",
+        "color": "green",
+        "downloadName": "kalvarijaTrail01duga.gpx",
+        "menuId": "linkKalvarija01duga",
+        "layerName": "kalvarija01dugaLayer",
+        "infoUrl": ""
+    },
+    {
         "code": "melanija",
         "name": "Melanija",
-        "gpx": "data/routeGoranMelanija.txt",
+        "gpx": "data/routeMelanija.txt",
         "color": "red",
         "downloadName": "melanija.gpx",
         "menuId": "linkMelanija",
@@ -10,13 +40,13 @@
         "infoUrl": ""
     },
     {
-        "code": "dragojla",
-        "name": "Dragojla",
-        "gpx": "data/routeGoranDragojlaProduzena.txt",
-        "color": "blue",
-        "downloadName": "dragojla.gpx",
-        "menuId": "linkDragojla",
-        "layerName": "dragojlaLayer",
-        "infoUrl": "http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf"
+        "code": "zrinka",
+        "name": "Zrinka",
+        "gpx": "data/routeZrinka2.gpx.txt",
+        "color": "#8000ff",
+        "downloadName": "zrinka.gpx",
+        "menuId": "linkZrinka",
+        "layerName": "zrinkaLayer",
+        "infoUrl": ""
     }
 ]

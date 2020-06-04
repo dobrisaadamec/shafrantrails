@@ -85,9 +85,6 @@ function setGoogleTerainMap() {
 
 function showRouteModalInfo(name, gpxLayer, url, additionalInfo) {
 
-  showElevationLayer(selectedLayerGPX);
-
-
   $("#routeModal").modal("show");
   $('#routeName').text(name);
   var info = '<p>Dužina: ' + (gpxLayer.get_distance() / 1000).toFixed(2) + 'km</p>';
@@ -146,12 +143,11 @@ function showElevationLayer(gpxPath) {
   // Load track from url (allowed data types: "*.geojson", "*.gpx")
   controlElevation.load(gpxPath);
   controlElevation.show();
-  elevationControls.addLayer(controlElevation);
 
 }
 
 function hideElevationLayer() {
-  //controlElevation.hide();
+  controlElevation.hide();
 }
 
 /* Attribution control */
@@ -245,7 +241,7 @@ var elevation_options = {
   // if (!detached) autohide chart profile on chart mouseleave
   autohide: false,
   // if (!detached) initial state of chart profile control
-  collapsed: true,
+  collapsed: false,
   // if (!detached) control position on one of map corners
   position: "bottomright",
   // Autoupdate map center on chart mouseover.
@@ -256,6 +252,21 @@ var elevation_options = {
   reverseCoords: false,
   // Summary track info style: "line" || "multiline" || false,
   summary: 'line',
+  gpxOptions: {
+    async: true,
+    marker_options: {
+      startIconUrl: null,
+      endIconUrl: null,
+      shadowUrl: null
+    },
+    polyline_options: {
+      className: '',
+      color: '#566B13',
+      opacity: 1,
+      weight: 0,
+      lineCap: 'round'
+    },
+  },
 };
 
 map = L.map('map').setView([45.4858, 15.5218], 13);

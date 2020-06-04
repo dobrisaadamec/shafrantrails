@@ -114,8 +114,14 @@ function toggleRoute(el, layer) {
     $(el).removeClass("fa-circle-o");
     $(el).addClass("fa-check-circle");
 
-    map.fitBounds(layer.getBounds());
-    //layer.reload();
+    try {
+      map.fitBounds(layer.getBounds());
+      //layer.reload();
+    }
+    catch (err) {
+
+    }
+
   }
 
   function zoomRoute(layer) {
@@ -332,9 +338,9 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
       <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
       </li>`;
     htmlMenu += `<tr class="" style="cursor:pointer;">
-      <td id="${value.menuId}"  onclick=" map.fitBounds(${value.layerName}.getBounds());" ></i>
+      <td  onclick=" map.fitBounds(${value.layerName}.getBounds());" ></i>
       ${value.name}
-      </td><td><i onclick="toggleRoute(this, ${value.layerName})" style="float:right; margin-right: 5px;color: #379863" 
+      </td><td><i  id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" style="float:right; margin-right: 5px;color: #379863" 
       class="fa fa-2x fa-check-circle"></i></td>
     </tr>`;
 

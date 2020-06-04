@@ -89,6 +89,9 @@ input[type="radio"], input[type="checkbox"] {
   font-size: 25px;
   color: #FFFFFF;
 }
+.navbar-inverse {
+  background-color: #05386B;
+}
 .navbar-collapse.in {
   overflow-y: hidden;
 }

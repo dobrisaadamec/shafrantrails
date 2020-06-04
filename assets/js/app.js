@@ -83,7 +83,11 @@ function setGoogleTerainMap() {
   map.addLayer(mapLayerGoogleTerain);
 }
 
-function showRouteModalInfo(name, gpxLayer, url) {
+function showRouteModalInfo(name, gpxLayer, url, additionalInfo) {
+
+  showElevationLayer(selectedLayerGPX);
+
+
   $("#routeModal").modal("show");
   $('#routeName').text(name);
   var info = '<p>Dužina: ' + (gpxLayer.get_distance() / 1000).toFixed(2) + 'km</p>';
@@ -91,8 +95,11 @@ function showRouteModalInfo(name, gpxLayer, url) {
   info = info + '<p>Min visina: ' + (gpxLayer.get_elevation_min() != null ? gpxLayer.get_elevation_min().toFixed(0) + 'm' : '0m') + '</p>';
   info = info + '<p>Max visina: ' + (gpxLayer.get_elevation_max() != null ? gpxLayer.get_elevation_max().toFixed(0) + 'm' : '-') + '</p>';
   info = info + '<p>Vrijeme traga: ' + (gpxLayer.get_total_time() != 'null' ? gpxLayer.get_duration_string_iso(gpxLayer.get_total_time(), false) : '-') + '</p>';
+  if (additionalInfo.length > 0) {
+    info = info + '<hr/>' + additionalInfo;
+  }
   if (url.length > 0) {
-    info = info + '<hr/><p>Dodatno: <a href="' + url + '" target="_blank">upute<a/>'
+    info = info + '<hr/><p>Upute: <a href="' + url + '" target="_blank">upute<a/>'
   }
 
   $('#routeInfo').html(info);
@@ -112,25 +119,39 @@ function toggleRoute(el, layer) {
 
   //elevation - gasi ako nije jedna
   if ($('.fa-check-circle').length > 1) {
+    map.setView([45.4858, 15.5218], 13);
     hideElevationLayer();
   }
   if ($('.fa-check-circle').length == 0) {
+    map.setView([45.4858, 15.5218], 13);
     hideElevationLayer();
   }
 
   return false;
 }
 
+function showSelectedLayer() {
+  //eval(clickAllLayersScript);
+  eval(`showElevationLayer('${selectedLayerGPX}');`);
+  //eval(`$("#${selectedLayerMenuId}").click();`);
+}
+
+var elevationControls = new L.FeatureGroup();
+
+
 function showElevationLayer(gpxPath) {
   // Instantiate elevation control.
-  controlElevation.addTo(map);
 
+  controlElevation.clear();
   // Load track from url (allowed data types: "*.geojson", "*.gpx")
   controlElevation.load(gpxPath);
+  controlElevation.show();
+  elevationControls.addLayer(controlElevation);
+
 }
 
 function hideElevationLayer() {
-  map.removeControl(controlElevation);
+  //controlElevation.hide();
 }
 
 /* Attribution control */
@@ -224,7 +245,7 @@ var elevation_options = {
   // if (!detached) autohide chart profile on chart mouseleave
   autohide: false,
   // if (!detached) initial state of chart profile control
-  collapsed: false,
+  collapsed: true,
   // if (!detached) control position on one of map corners
   position: "bottomright",
   // Autoupdate map center on chart mouseover.
@@ -268,6 +289,9 @@ var mapLayerOpenTopoMap = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/
 //init layers
 var trailsLayer;
 
+var selectedLayerMenuId;
+var selectedLayerGPX;
+
 var createLayersScript = '';
 var clickAllLayersScript = '';
 
@@ -289,7 +313,7 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
       </li>`;
     htmlMenu += `<tr class="" style="cursor:pointer;">
       <td id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" ></i>
-      ${value.name}<i style="float:right; margin-right: 5px;color: green" class="fa fa-2x fa-check-circle"></i>
+      ${value.name}<i style="float:right; margin-right: 5px;color: #379863" class="fa fa-2x fa-check-circle"></i>
       </td>
     </tr>`;
 
@@ -312,7 +336,9 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
     });
   
     ${value.layerName}.on('click', function (e) {
-      showRouteModalInfo('${value.name}', this, '${value.infoUrl}');
+      selectedLayerMenuId = '${value.menuId}';
+      selectedLayerGPX = '${value.gpx}';
+      showRouteModalInfo('${value.name}', this, '${value.infoUrl}', '${value.additionInfo}');
     });
     `
 
@@ -343,9 +369,8 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
 
 eval(createLayersScript);
 
-eval(`trailsLayer = L.layerGroup([${trailLayersList}]);`);
+eval(`trailsLayer = L.featureGroup([${trailLayersList}]);`);
 
-//trailsLayer = L.layerGroup([dragojlaLayer, melanijaLayer]);
 trailsLayer.addTo(map);
 
 var iconGreenLeaf = L.icon({
@@ -398,9 +423,8 @@ $.getJSON("data/poidb.json.txt", function (data) {
   eval(`POILayer = L.layerGroup([${poiLayers}]);`);
 });
 
-//elevation layer
 var controlElevation = L.control.elevation(elevation_options);
-
+controlElevation.addTo(map);
 //samo jedna odabrana
 var routeName = getQueryVariable(window.location.search, 'name');
 if (routeName.length > 0) {
@@ -411,7 +435,6 @@ if (routeName.length > 0) {
     eval(`$("#${selectedTrail.menuId}").click();`);
   }
 }
-
 
 $('#loading').hide();
 

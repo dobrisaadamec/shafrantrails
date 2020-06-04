@@ -54,6 +54,11 @@
       visibility: hidden;
     }
   </style>
+  <style>
+    .leaflet-control.elevation .elevation-toggle-icon {
+      background-color: #FF0 !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -220,6 +225,8 @@
           <p>...</p>
         </div>
         <div class="modal-footer">
+          <button type="button" onclick="showSelectedLayer(); return true;" class="btn btn-default"
+            data-dismiss="modal">Pokaži visinski graf</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
         </div>
       </div><!-- /.modal-content -->

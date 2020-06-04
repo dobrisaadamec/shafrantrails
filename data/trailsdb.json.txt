@@ -7,7 +7,8 @@
         "downloadName": "dragojla.gpx",
         "menuId": "linkDragojla",
         "layerName": "dragojlaLayer",
-        "infoUrl": "http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf"
+        "infoUrl": "http://udruga-dodir-prirode.hr/wp-content/uploads/2017/06/Mrzlo-polje-Dubovac-kona%C4%8Dno.pdf",
+        "additionInfo": "Od Mrzlog polja do Starog grada Dubovac, početak po makadamu pa na stazice i još dio po asfaltu."
     },
     {
         "code": "kalvarija01kratka",
@@ -17,7 +18,8 @@
         "downloadName": "kalvarijaTrail01kratka.gpx",
         "menuId": "linkKalvarija01kratka",
         "layerName": "kalvarija01kratkaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Prvi Kalvarija trail - kratka kratka staza"
     },
     {
         "code": "kalvarija01duga",
@@ -27,7 +29,8 @@
         "downloadName": "kalvarijaTrail01duga.gpx",
         "menuId": "linkKalvarija01duga",
         "layerName": "kalvarija01dugaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Prvi Kalvarija trail - duža"
     },
     {
         "code": "dppgrdun",
@@ -37,7 +40,8 @@
         "downloadName": "routeDPPGrdun.gpx",
         "menuId": "linkDPPGrdun",
         "layerName": "DPPGrdunLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Do iznad Grduna a ispod Piščetka po Dubovačkom planinarskom putu"
     },
     {
         "code": "margareta",
@@ -47,7 +51,8 @@
         "downloadName": "routeMargareta.gpx",
         "menuId": "linkMargareta",
         "layerName": "margaretaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Od Margarete do Zadobarja, posjetiti Ivanovu Hižu između"
     },
     {
         "code": "melanija",
@@ -57,7 +62,8 @@
         "downloadName": "melanija.gpx",
         "menuId": "linkMelanija",
         "layerName": "melanijaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Od AGM ulaza do Roganca i nazad"
     },
     {
         "code": "dpp",
@@ -67,7 +73,8 @@
         "downloadName": "routeDPP.gpx",
         "menuId": "linkDPP",
         "layerName": "dppLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Dubovački planinarski put - pratiti markacije"
     },
     {
         "code": "safranKalvarija",
@@ -77,7 +84,8 @@
         "downloadName": "safranKalvarija.gpx",
         "menuId": "linkSafranKalvarija",
         "layerName": "safranKalvarijaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Dubovac - Kalvarija - Dubovac"
     },
     {
         "code": "safranmcadam",
@@ -87,7 +95,8 @@
         "downloadName": "routeSafranMcAdam.gpx",
         "menuId": "linkSafranMcAdam",
         "layerName": "safranmcadamLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Makadam kako mu ime i kaže, gore pa nazad dolje"
     },
     {
         "code": "uzdih",
@@ -97,7 +106,8 @@
         "downloadName": "routeUzdihPrecica.gpx",
         "menuId": "linkUzdih",
         "layerName": "uzdihLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Rubno gradom, za skratiti povratak s Dubovca"
     },
     {
         "code": "zrinka",
@@ -107,7 +117,8 @@
         "downloadName": "zrinka.gpx",
         "menuId": "linkZrinka",
         "layerName": "zrinkaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Lijepa kružna po Kozjači"
     },
     {
         "code": "mrampa",
@@ -117,6 +128,7 @@
         "downloadName": "routeMentalnaRampa.gpx",
         "menuId": "linkmentalnaRampa",
         "layerName": "mentalnaRampaLayer",
-        "infoUrl": ""
+        "infoUrl": "",
+        "additionInfo": "Dvorišta i to"
     }
 ]

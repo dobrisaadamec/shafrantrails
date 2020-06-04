@@ -106,12 +106,20 @@ function toggleRoute(el, layer) {
 
   if (map.hasLayer(layer)) {
     map.removeLayer(layer);
-    $(el).children(":first").removeClass("fa-check-circle");
-    $(el).children(":first").addClass("fa-circle-o");
+    //children(":first")
+    $(el).removeClass("fa-check-circle");
+    $(el).addClass("fa-circle-o");
   } else {
     map.addLayer(layer);
-    $(el).children(":first").removeClass("fa-circle-o");
-    $(el).children(":first").addClass("fa-check-circle");
+    $(el).removeClass("fa-circle-o");
+    $(el).addClass("fa-check-circle");
+
+    map.fitBounds(layer.getBounds());
+    //layer.reload();
+  }
+
+  function zoomRoute(layer) {
+    map.fitBounds(layer.getBounds());
   }
 
   //elevation - gasi ako nije jedna
@@ -123,6 +131,7 @@ function toggleRoute(el, layer) {
     map.setView([45.4858, 15.5218], 13);
     hideElevationLayer();
   }
+
 
   return false;
 }
@@ -323,9 +332,10 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
       <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
       </li>`;
     htmlMenu += `<tr class="" style="cursor:pointer;">
-      <td id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" ></i>
-      ${value.name}<i style="float:right; margin-right: 5px;color: #379863" class="fa fa-2x fa-check-circle"></i>
-      </td>
+      <td id="${value.menuId}"  onclick=" map.fitBounds(${value.layerName}.getBounds());" ></i>
+      ${value.name}
+      </td><td><i onclick="toggleRoute(this, ${value.layerName})" style="float:right; margin-right: 5px;color: #379863" 
+      class="fa fa-2x fa-check-circle"></i></td>
     </tr>`;
 
     createLayersScript += `var ${value.layerName} = new L.GPX('${value.gpx}', {
@@ -352,7 +362,6 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
       showRouteModalInfo('${value.name}', this, '${value.infoUrl}', '${value.additionInfo}');
     });
     `
-
     clickAllLayersScript += `$("#${value.menuId}").click();`;
 
     createPOIlayerScript += `L.marker([45.477655, 15.533742], { icon: iconRedLeaf }).bindPopup("Ulaz AGM 1 (Poučna staza)<br/><img width='100%' src='assets/img/poi/agm1.jpg' />");`;
@@ -362,18 +371,6 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
 
   $('#menuTrailsDownload').html(htmlDownload);
 
-  //ključna mjesta
-  var HTMLPOI = `<tr>
-                    <td>
-                      <hr />
-                    </td>
-                  </tr>
-                  <tr class="">
-                    <td id="linkPOI" style="cursor:pointer" onclick="toggleRoute(this, POILayer)">
-                      Ključna mjesta<i style="float:right; margin-right: 5px; color: green"
-                        class="fa fa-2x fa-circle-o"></i></td>
-                  </tr>`;
-  htmlMenu += HTMLPOI;
   $('#menuTrails').html(htmlMenu);
 
 });
@@ -436,6 +433,7 @@ $.getJSON("data/poidb.json.txt", function (data) {
 
 var controlElevation = L.control.elevation(elevation_options);
 controlElevation.addTo(map);
+hideElevationLayer();
 //samo jedna odabrana
 var routeName = getQueryVariable(window.location.search, 'name');
 if (routeName.length > 0) {

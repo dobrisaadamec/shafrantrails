@@ -17,26 +17,13 @@ function animateSidebar() {
     width: "toggle"
   }, 350, function () {
     map.invalidateSize();
+    hideElevationLayer();
   });
 }
 
 function sizeLayerControl() {
   $(".leaflet-control-layers").css("max-height", $("#map").height() - 50);
-}
-
-function clearHighlight() {
-  highlight.clearLayers();
-}
-
-function sidebarClick(id) {
-  var layer = markerClusters.getLayer(id);
-  map.setView([layer.getLatLng().lat, layer.getLatLng().lng], 17);
-  layer.fire("click");
-  /* Hide sidebar and go to the map on small screens */
-  if (document.body.clientWidth <= 767) {
-    $("#sidebar").hide();
-    map.invalidateSize();
-  }
+  hideElevationLayer();
 }
 
 function setOpenMap() {
@@ -85,6 +72,8 @@ function setGoogleTerainMap() {
 
 function showRouteModalInfo(name, gpxLayer, url, additionalInfo) {
 
+  //showElevationLayer();
+
   $("#routeModal").modal("show");
   $('#routeName').text(name);
   var info = '<p>Dužina: ' + (gpxLayer.get_distance() / 1000).toFixed(2) + 'km</p>';
@@ -109,6 +98,7 @@ function toggleRoute(el, layer) {
     //children(":first")
     $(el).removeClass("fa-check-circle");
     $(el).addClass("fa-circle-o");
+    hideElevationLayer();
   } else {
     map.addLayer(layer);
     $(el).removeClass("fa-circle-o");
@@ -121,11 +111,6 @@ function toggleRoute(el, layer) {
     catch (err) {
 
     }
-
-  }
-
-  function zoomRoute(layer) {
-    map.fitBounds(layer.getBounds());
   }
 
   //elevation - gasi ako nije jedna
@@ -137,10 +122,37 @@ function toggleRoute(el, layer) {
     map.setView([45.4858, 15.5218], 13);
     hideElevationLayer();
   }
+  return false;
+}
 
+function togglePOI(el, layer) {
+  if (map.hasLayer(layer)) {
+    map.removeLayer(layer);
+    $(el).children(":first").removeClass("fa-check-circle");
+    $(el).children(":first").addClass("fa-circle-o");
+  } else {
+    map.addLayer(layer);
+    $(el).children(":first").removeClass("fa-circle-o");
+    $(el).children(":first").addClass("fa-check-circle");
+    layer.reload();
+    try {
+      map.fitBounds(layer.getBounds());
+      //layer.reload();
+    }
+    catch (err) {
+    }
+  }
 
   return false;
 }
+
+
+function zoomRoute(layer) {
+  map.fitBounds(layer.getBounds());
+  layer.reload();
+}
+
+
 
 function showSelectedLayer() {
   //eval(clickAllLayersScript);
@@ -153,8 +165,9 @@ var elevationControls = new L.FeatureGroup();
 
 function showElevationLayer(gpxPath) {
   // Instantiate elevation control.
-
-  controlElevation.clear();
+  try {
+    controlElevation.clear();
+  } catch { }
   // Load track from url (allowed data types: "*.geojson", "*.gpx")
   controlElevation.load(gpxPath);
   controlElevation.show();
@@ -186,18 +199,12 @@ $(window).resize(function () {
   sizeLayerControl();
 });
 
-$(document).on("click", ".feature-row", function (e) {
-  $(document).off("mouseout", ".feature-row", clearHighlight);
-  sidebarClick(parseInt($(this).attr("id"), 10));
-});
 
 if (!("ontouchstart" in window)) {
   $(document).on("mouseover", ".feature-row", function (e) {
     highlight.clearLayers().addLayer(L.circleMarker([$(this).attr("lat"), $(this).attr("lng")], highlightStyle));
   });
 }
-
-$(document).on("mouseout", ".feature-row", clearHighlight);
 
 $("#about-btn").click(function () {
   $("#aboutModal").modal("show");
@@ -338,7 +345,7 @@ $.getJSON("data/trailsdb.json.txt", function (data) {
       <i class="fa fa-download"></i>&nbsp;&nbsp;${value.name}</a>
       </li>`;
     htmlMenu += `<tr class="" style="cursor:pointer;">
-      <td  onclick=" map.fitBounds(${value.layerName}.getBounds());" ></i>
+      <td  onclick="zoomRoute(${value.layerName});" ></i>
       ${value.name}
       </td><td><i  id="${value.menuId}" onclick="toggleRoute(this, ${value.layerName})" style="float:right; margin-right: 5px;color: #379863" 
       class="fa fa-2x fa-check-circle"></i></td>
@@ -441,9 +448,9 @@ var controlElevation = L.control.elevation(elevation_options);
 controlElevation.addTo(map);
 hideElevationLayer();
 //samo jedna odabrana
-var routeName = getQueryVariable(window.location.search, 'name');
-if (routeName.length > 0) {
-  var selectedTrail = trailsDbData.find(x => x.code === routeName);
+var routeCode = getQueryVariable(window.location.search, 'code');
+if (routeCode.length > 0) {
+  var selectedTrail = trailsDbData.find(x => x.code === routeCode);
   if (selectedTrail != undefined) {
     eval(clickAllLayersScript);
     eval(`showElevationLayer('${selectedTrail.gpx}');`);
@@ -459,10 +466,10 @@ var attributionControl = L.control({
 });
 attributionControl.onAdd = function (map) {
   var div = L.DomUtil.create("div", "leaflet-control-attribution");
-  div.innerHTML = "<span class='hidden-xs'>Developed by <a href='http://bryanmcbride.com'>bryanmcbride.com</a> | </span><a href='#' onclick='$(\"#attributionModal\").modal(\"show\"); return false;'>Attribution</a>";
+  div.innerHTML = "<span class='hidden-xs'>Developed by <a target='_blank' href='http://www.brid-online.hr'>brid-online.hr</a> | </span><a href='https://github.com/bmcbride/bootleaf/' target='_blank' >Based on bootleaf</a>";
   return div;
 };
-// map.addControl(attributionControl);
+map.addControl(attributionControl);
 
 // var zoomControl = L.control.zoom({
 //   position: "bottomright"
@@ -500,6 +507,13 @@ var locateControl = L.control.locate({
   }
 }).addTo(map);
 
+
+// map.on('moveend', function () {
+//   if ($('.fa-check-circle').length != 1) {
+//     hideElevationLayer();
+//   }
+// });
+
 /* Larger screens get expanded layer control and visible sidebar */
 if (document.body.clientWidth <= 767) {
   var isCollapsed = true;
@@ -517,10 +531,6 @@ $("#searchbox").keypress(function (e) {
   if (e.which == 13) {
     e.preventDefault();
   }
-});
-
-$("#featureModal").on("hidden.bs.modal", function (e) {
-  $(document).on("mouseout", ".feature-row", clearHighlight);
 });
 
   // // Leaflet patch to make layer control scrollable on touch browsers

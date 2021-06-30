@@ -44,6 +44,17 @@
         "additionInfo": "Do iznad Grduna a ispod Piščetka po Dubovačkom planinarskom putu"
     },
     {
+        "code": "malakozjaca",
+        "name": "Mala Kozjača",
+        "gpx": "data/routeMKozjaca.txt",
+        "color": "#0377C3",
+        "downloadName": "routeMKozjaca.gpx",
+        "menuId": "linkMKozjaca",
+        "layerName": "mkozjacaLayer",
+        "infoUrl": "",
+        "additionInfo": "cca 99% stazice, 0,7% mcadam, 0,3% asfalt"
+    },
+    {
         "code": "margareta",
         "name": "Margareta i majstor",
         "gpx": "data/routeMargareta.gpx.txt",
@@ -53,6 +64,17 @@
         "layerName": "margaretaLayer",
         "infoUrl": "",
         "additionInfo": "Od Margarete do Zadobarja, posjetiti Ivanovu Hižu između"
+    },
+    {
+        "code": "medjugradska",
+        "name": "Međugradska",
+        "gpx": "data/routeMedjugradska.gpx.txt",
+        "color": "#000080",
+        "downloadName": "medjugradska.gpx",
+        "menuId": "linkMedjugradska",
+        "layerName": "medjugradskaLayer",
+        "infoUrl": "",
+        "additionInfo": "Međugradska staza"
     },
     {
         "code": "melanija",
@@ -66,6 +88,17 @@
         "additionInfo": "Od AGM ulaza do Roganca i nazad"
     },
     {
+        "code": "mrampa",
+        "name": "Mentalna rampa",
+        "gpx": "data/routeMentalnaRampa.gpx.txt",
+        "color": "#8000ff",
+        "downloadName": "routeMentalnaRampa.gpx",
+        "menuId": "linkmentalnaRampa",
+        "layerName": "mentalnaRampaLayer",
+        "infoUrl": "",
+        "additionInfo": "Dvorišta i to"
+    },
+    {
         "code": "dpp",
         "name": "Od Ozlja (DPP)",
         "gpx": "data/routeDPP.gpx.txt",
@@ -77,7 +110,18 @@
         "additionInfo": "Dubovački planinarski put - pratiti markacije"
     },
     {
-        "code": "safranKalvarija",
+        "code": "sjeversjeverozapad",
+        "name": "Sjever - sjeverozapad",
+        "gpx": "data/routeSjeverSjeverozapad.gpx.txt",
+        "color": "#F837E0",
+        "downloadName": "sjeversjeverozapad.gpx",
+        "menuId": "linkSjeverSjeverozapad",
+        "layerName": "sjeversjeverozapadLayer",
+        "infoUrl": "data/SJEVER-SJEVEROZAPAD-37-K.pdf",
+        "additionInfo": "Prva naša staza uz Kupu skroz do Brodaraca, dijelom Obilaznice 4 rijeke do Zadobarja, pa u potragu za tragovima WRC relija na asfaltu (pazi uspon na Piščetke i dalje ;-) ) i povratak po DPP"
+    },
+    {
+        "code": "safrankalvarija",
         "name": "Šafran Kalvarija (DPP)",
         "gpx": "data/routeSafranKalvarijaDPP.gpx.txt",
         "color": "#e8095f",
@@ -119,16 +163,5 @@
         "layerName": "zrinkaLayer",
         "infoUrl": "",
         "additionInfo": "Lijepa kružna po Kozjači"
-    },
-    {
-        "code": "mrampa",
-        "name": "Mentalna rampa",
-        "gpx": "data/routeMentalnaRampa.gpx.txt",
-        "color": "#8000ff",
-        "downloadName": "routeMentalnaRampa.gpx",
-        "menuId": "linkmentalnaRampa",
-        "layerName": "mentalnaRampaLayer",
-        "infoUrl": "",
-        "additionInfo": "Dvorišta i to"
     }
 ]
